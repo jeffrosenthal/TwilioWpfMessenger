@@ -35,8 +35,6 @@ namespace WpfMessenger
         }
         private ServiceProvider ConfigureServices(ServiceCollection services)
         {
-
-            var container = new ServiceContainer();
             services.AddSingleton(Configuration);
             services.AddSingleton<ViewModel>();
             services.AddScoped<TwilioService>();
@@ -83,6 +81,8 @@ namespace WpfMessenger
 
         public override void Configure(Funq.Container container)
         {
+            //ServiceStack internally uses its own IoC
+            //By implementing an adapter, the calls are passed to the Microsoft.Extensions.DependencyInjection
             container.Adapter = new MicrosoftDependencyInjectionAdapter(_serviceProvider);
         }
     }

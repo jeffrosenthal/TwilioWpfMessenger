@@ -56,7 +56,7 @@ namespace WpfMessenger
         public ViewModel()
         {
             //Add an empty conversation - used to select all in the filtering
-            _conversations.Add($"aaaa");
+            _conversations.Add($"View All");
         }
 
         public void AddMessage(string from, string body, Direction direction)

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace WpfMessenger
 {
@@ -20,16 +21,23 @@ namespace WpfMessenger
         }
         public void SendSms(string toNumber, string body)
         {
-            //Add the country code to the phone number if it is not there
-            if (!toNumber.StartsWith("+1"))
-                toNumber = $"+1{toNumber}";
+            try
+            {
+                //Add the country code to the phone number if it is not there
+                if (!toNumber.StartsWith("+1"))
+                    toNumber = $"+1{toNumber}";
 
-            var message = MessageResource.Create(
-                body: body,
-                @from: new Twilio.Types.PhoneNumber(_phonenumber),
-                to: new Twilio.Types.PhoneNumber(toNumber)
-            );
-            Console.WriteLine(message.Sid);
+                var message = MessageResource.Create(
+                    body: body,
+                    @from: new PhoneNumber(_phonenumber),
+                    to: new PhoneNumber(toNumber)
+                );
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
