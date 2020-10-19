@@ -1,6 +1,5 @@
 ﻿using System;
 using ServiceStack;
-using Twilio.TwiML;
 
 namespace WpfMessenger
 {
@@ -34,7 +33,4 @@ namespace WpfMessenger
             return new HttpResult(string.Empty, "text/plain");
         }
     }
-
-    //Define the Web Services AppHost
-    
 }

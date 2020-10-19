@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,14 +32,11 @@ namespace WpfMessenger
             Configuration = builder.Build();
             _services = new ServiceCollection();
             _serviceProvider = ConfigureServices(_services);
-             
-            
         }
         private ServiceProvider ConfigureServices(ServiceCollection services)
         {
 
             var container = new ServiceContainer();
-           // services.AddSingleton<AppHost>();
             services.AddSingleton(Configuration);
             services.AddSingleton<ViewModel>();
             services.AddScoped<TwilioService>();
@@ -92,11 +84,6 @@ namespace WpfMessenger
         public override void Configure(Funq.Container container)
         {
             container.Adapter = new MicrosoftDependencyInjectionAdapter(_serviceProvider);
-            //container.AddSingleton(Configuration);
-            //container.AddSingleton<ViewModel>();
-            //container.AddScoped<TwilioService>();
-            //container.AddSingleton<MessageSender>();
-            //container.AddSingleton<MainWindow>();
         }
     }
 
