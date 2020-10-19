@@ -32,7 +32,7 @@ namespace WpfMessenger
             _viewModel = vm;
             _messageSender = ms;
             DataContext = _viewModel;
-            var accountSid = conf["accountSid"];
+            
         }
 
         //The selected item changed in the conversations (left panel)
@@ -59,11 +59,15 @@ namespace WpfMessenger
 
     public class MessageSender
     {
-        const string accountSid = "";
-        const string authToken = "";
+        private readonly string _phonenumber;
 
-        public MessageSender()
+        public MessageSender(IConfigurationRoot conf)
         {
+            var accountSid = conf["accountSid"];
+            var authToken = conf["authToken"]; 
+            
+            
+            _phonenumber = conf["phonenumber"];
             TwilioClient.Init(accountSid, authToken);
         }
         public void SendSms(string toNumber, string body)
@@ -74,7 +78,7 @@ namespace WpfMessenger
 
             var message = MessageResource.Create(
                 body: body,
-                from: new Twilio.Types.PhoneNumber("+19704322501"),
+                from: new Twilio.Types.PhoneNumber(_phonenumber),
                 to: new Twilio.Types.PhoneNumber(toNumber)
             );
             Console.WriteLine(message.Sid);
