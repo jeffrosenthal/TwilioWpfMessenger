@@ -3,8 +3,6 @@ using System.ComponentModel.Design;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceStack;
-using ServiceStack.Configuration;
 
 namespace WpfMessenger
 {
@@ -67,42 +65,6 @@ namespace WpfMessenger
             }
 
             
-        }
-    }
-    public class AppHost : AppSelfHostBase
-    {
-        private readonly ServiceProvider _serviceProvider;
-
-        public AppHost(ServiceProvider sp)
-            : base("HttpListener Self-Host", typeof(TwilioService).Assembly)
-        {
-            _serviceProvider = sp;
-        }
-
-        public override void Configure(Funq.Container container)
-        {
-            //ServiceStack internally uses its own IoC
-            //By implementing an adapter, the calls are passed to the Microsoft.Extensions.DependencyInjection
-            container.Adapter = new MicrosoftDependencyInjectionAdapter(_serviceProvider);
-        }
-    }
-
-    public class MicrosoftDependencyInjectionAdapter : IContainerAdapter
-    {
-        private readonly ServiceProvider _serviceProvider;
-
-        public MicrosoftDependencyInjectionAdapter(ServiceProvider sp)
-        {
-            _serviceProvider = sp;
-        }
-        public T TryResolve<T>()
-        {
-            return _serviceProvider.TryResolve<T>();
-        }
-
-        public T Resolve<T>()
-        {
-            return _serviceProvider.GetService<T>();
         }
     }
 }
