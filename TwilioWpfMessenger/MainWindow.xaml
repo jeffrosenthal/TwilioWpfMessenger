@@ -8,12 +8,10 @@
         Title="Messenger" Height="450" Width="800">
     
     <DockPanel>
-       
         <StackPanel Orientation="Vertical" Width="100" Background="Beige" DockPanel.Dock="Left">
             <Label>Conversations</Label>
             <ListBox Name="lbConversations" ItemsSource="{Binding Conversations}" Height="300" Background="Cornsilk" SelectionChanged="lbConversations_SelectionChanged"></ListBox>    
         </StackPanel>
-        <!--SelectedItem="{Binding Filter, Mode=OneWayToSource }" -->
     
         <Grid Height="50" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -30,16 +28,10 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        
                         <TextBlock Text="{Binding MessageBody}" Margin="20,0,0,0"/>
                     </StackPanel>
-
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-
-</DockPanel>
-
-    
+    </DockPanel>
 </Window>

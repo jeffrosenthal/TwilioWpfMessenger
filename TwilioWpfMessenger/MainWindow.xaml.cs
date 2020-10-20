@@ -20,7 +20,6 @@ namespace WpfMessenger
         /// <summary>
         /// MainWindow ctor - pass in IConfigurationRoot so user secrets can be accessed
         /// </summary>
-        /// <param name="conf"></param>
         public MainWindow(IConfigurationRoot conf, ViewModel vm, MessageSender ms)
         {
             InitializeComponent();
@@ -42,7 +41,10 @@ namespace WpfMessenger
             //Gather the pieces that will be required
             var body = NewMessageTextBox.Text;
             var number = (string)lbConversations.SelectedValue;
-
+            if (number == null)
+            {
+                return;
+            }
             //Add a new Outbound message to Messages
             _viewModel.AddMessage(number, body, Direction.Outbound);
             NewMessageTextBox.Text = String.Empty;
